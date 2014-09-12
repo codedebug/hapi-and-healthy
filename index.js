@@ -66,7 +66,10 @@ exports.register = function (plugin, options, next) {
             method: 'GET',
             path: opt.path.main,
             config: {
-                auth: opt.auth||false
+                auth: opt.auth||false,
+                description:'Get the machine friendly output of the API',
+                notes:'Machine readable version of the API',
+                tags:['health','api','status']
             },
             handler: handleHealth
         });
@@ -76,7 +79,10 @@ exports.register = function (plugin, options, next) {
             method: 'GET',
             path: opt.path.human,
             config: {
-                auth: opt.auth||false
+                auth: opt.auth||false,
+                description:'Get the human friendly output of the API',
+                notes:'Human readable version of the API',
+                tags:['health','api','status']
             },
             handler: function(request, reply) {
                 handleHealth(request, function(data){
@@ -106,9 +112,9 @@ exports.register = function (plugin, options, next) {
             path: opt.path.ltm,
             config:{
                 auth:false,
-                tags:['api','health','status'],
                 description: "Simple LTM monitor API to determine if the node is bad. Responds with text/plain and 200 or 500 code.",
-                notes: "Returns a web service's current health status state. Status State String: HEALTHY, WARN, FATAL. WARN is a (graceful) degraded state - service only provides core, required functionality when in this state. If LTM detects non-200 response or FATAL, node should be pulled from rotation immediately."
+                notes: "Returns a web service's current health status state. Status State String: HEALTHY, WARN, FATAL. WARN is a (graceful) degraded state - service only provides core, required functionality when in this state. If LTM detects non-200 response or FATAL, node should be pulled from rotation immediately.",
+                tags:['health','api','status']
             },
             handler: function(request,reply){
                 // if any one of our LTM tests fail, this node is bad
